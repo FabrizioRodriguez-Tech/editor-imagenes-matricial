@@ -202,12 +202,37 @@ function obtenerCanal(matriz, canal) {
  * // {ancho: 100, alto: 100, totalPixeles: 10000}
  */
 function obtenerDimensionesImagen(rutaImagen) {
-  // TODO: Obtener dimensiones sin cargar toda la imagen en memoria
+  if (typeof rutaImagen !== 'string' || rutaImagen.trim() === '') {
+    throw new TypeError('obtenerDimensionesImagen: "rutaImagen" debe ser una cadena no vacía');
+  }
+
+  if (!fs.existsSync(rutaImagen)) {
+    throw new Error(`obtenerDimensionesImagen: archivo no encontrado en ruta "${rutaImagen}"`);
+  }
+
+  let buffer;
+  try {
+    buffer = fs.readFileSync(rutaImagen);
+  } catch (err) {
+    throw new Error(`obtenerDimensionesImagen: error al leer el archivo "${rutaImagen}": ${err.message}`);
+  }
+
+  let png;
+  try {
+    png = PNG.sync.read(buffer);
+  } catch (err) {
+    throw new Error(`obtenerDimensionesImagen: error al parsear PNG: ${err.message}`);
+  }
+
+  if (!png || typeof png.width !== 'number' || typeof png.height !== 'number') {
+    throw new Error('obtenerDimensionesImagen: formato PNG inválido');
+  }
+
+  const ancho = png.width;
+  const alto = png.height;
+  const totalPixeles = ancho * alto;
   
-  // Pista: Puedes cargar la imagen y usar obtenerDimensiones()
-  // o leer solo el header del PNG
-  
-  return { ancho: 0, alto: 0, totalPixeles: 0 }; // REEMPLAZAR
+  return { ancho, alto, totalPixeles };
 }
 
 // ============================================
