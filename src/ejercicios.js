@@ -501,9 +501,26 @@ function mezclarImagenes(matriz1, matriz2, factor) {
  * const vintage = aplicarSepia(matriz);
  */
 function aplicarSepia(matriz) {
-  // TODO: Implementar filtro sepia
+  const resultado = copiarMatriz(matriz);
   
-  return []; // REEMPLAZAR
+  for (let i = 0; i < resultado.length; i++) {
+    for (let j = 0; j < resultado[i].length; j++) {
+      const pixel = matriz[i][j];
+      
+      const r = 0.393 * pixel.r + 0.769 * pixel.g + 0.189 * pixel.b;
+      const g = 0.349 * pixel.r + 0.686 * pixel.g + 0.168 * pixel.b;
+      const b = 0.272 * pixel.r + 0.534 * pixel.g + 0.131 * pixel.b;
+      
+      resultado[i][j] = {
+        r: limitarValorColor(r),
+        g: limitarValorColor(g),
+        b: limitarValorColor(b),
+        a: pixel.a
+      };
+    }
+  }
+  
+  return resultado;
 }
 
 /**
