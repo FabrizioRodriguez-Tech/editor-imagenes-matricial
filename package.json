@@ -19,7 +19,7 @@
     "educacion",
     "javascript",
     "png",
-	"Fundamentos-Algebra"
+    "Fundamentos-Algebra"
   ],
   "author": "Tecnológico de Software - Jorge J. Pedrozo Romero",
   "license": "MIT",
@@ -41,7 +41,7 @@
     "testMatch": [
       "**/src/**/*.test.js"
     ],
-	"coveragePathIgnorePatterns": [
+    "coveragePathIgnorePatterns": [
       "/node_modules/",
       "/src/utilidades.js",
       "/src/matriz.js"
